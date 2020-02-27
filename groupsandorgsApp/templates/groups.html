@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Hello {{loggedinuser.firstName}} {{loggedinuser.lastName}}</h1>
+
+
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>{{message}}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+
+
+    <p>Organizations that you can join!</p>
+        {% for org in allOrgs %}
+        <h2>
+            <!-- {% if org.joiner == loggedinuser %}
+            <a href="/deleteorg/{{allOrgs.id}}"><input type="submit" value="Delete"></a>
+            {% endif %} -->
+            <a href="/groups/{{org.id}}"><h2>{{org.orgname}}</h2></a>
+            <ul>{{org.description}}</ul>
+            <ul>Initial Member <a href=''>{{org.joiner.firstName}}</a></ul>
+            <p>Members:</p><ul>{{org.group.count}}</ul>
+        </ul>
+        {% endfor %}   
+        
+
+
+        <form action="/submitorg" method="post">
+            {% csrf_token %}
+            <p>Org Name</p><input type="text" name="org" id="">
+            <p>Description</p><input type="text" name="desc" id="">
+            <input type="submit" value="Create">
+        </form>
+
+        
+</body>
+</html>
